@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<properties resource="db_config.properties" />
+	<context id="centerTables" targetRuntime="MyBatis3">
+		<property name="javaFileEncoding" value="UTF-8" />
+		<property name="javaFormatter" value="com.hzcf.mybatis.format.MyFormatter" />
+		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+
+		<commentGenerator type="com.hzcf.mybatis.format.MyCommentGenerator">
+
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="${connectionURL}" userId="${userId}" password="${password}">
+			<property name="useInformationSchema" value="true"></property>
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="${entityPackage}"
+			targetProject="${baseFloder}src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+			<!-- <property name="rootClass" value="com.hzcf.operation.base.entity.BaseEntity" /> -->
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="${mapperPackage}"
+			targetProject="${mapperFloder}src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- annotation type="ANNOTATEDMAPPER" 或者xml type="XMLMAPPER" -->
+		<javaClientGenerator type="ANNOTATEDMAPPER"
+			targetPackage="${mapperPackage}" targetProject="${mapperFloder}src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" 
+			enableSelectByExample="false" selectByExampleQueryId="false" -->
+
+		<table schema="rps_data" tableName="t_derived_var"
+			domainObjectName="DerivedVariable" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="true" selectByExampleQueryId="false">
+			<property name="ignoreQualifiersAtRuntime" value="false" />
+			<!-- 设置主键用于插入时返回主键ID -->
+			<generatedKey column="var_id" sqlStatement="MySql" identity="true"/> 
+			<!-- 设置需要重写的字段 -->
+			<columnOverride column="state"
+				javaType="com.hzcf.operation.base.enums.DerivedVarStatus" />
+			<columnOverride column="data_status"
+				javaType="com.hzcf.operation.base.enums.DataStatus" />
+		</table>
+
+		<table schema="rps_data" tableName="cbd_system_user"
+			domainObjectName="SystemUser" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="true" selectByExampleQueryId="false">
+			<property name="ignoreQualifiersAtRuntime" value="false" />
+			<columnOverride column="isValid"
+				javaType="com.hzcf.operation.base.enums.DataStatus" />
+		</table>
+	</context>
+
+</generatorConfiguration>
