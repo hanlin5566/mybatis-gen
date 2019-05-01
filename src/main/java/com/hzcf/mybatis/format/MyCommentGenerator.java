@@ -160,11 +160,13 @@ public class MyCommentGenerator implements CommentGenerator {
 			//为了不关联其他项目，所以使用了indexof可能不准确,枚举需要是enum
 			if(className.indexOf("Date") >= 0){
 				//日期类型添加日期的注解
-				field.addJavaDocLine("@DateTimeFormat(pattern = DateUtils.ISO_DATE)");
+				field.addJavaDocLine("@DateTimeFormat(pattern = DatePattern.ISO_DATE)");
+				field.addJavaDocLine("@JsonFormat(pattern = DatePattern.ISO_DATE_TIME,timezone = DatePattern.TIME_ZONE)");
 			}else if(className.indexOf("enum") >= 0){
 				//枚举类型添加枚举的注解
 				field.addJavaDocLine("@JsonSerialize(using = EnumJsonSerializer.class)");
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -269,7 +271,16 @@ public class MyCommentGenerator implements CommentGenerator {
 		if (suppressAllComments) {
 			return;
 		}
-
+		
+		//引包
+		topLevelClass.addJavaDocLine("import org.springframework.format.annotation.DateTimeFormat;");
+		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.annotation.JsonFormat;");
+		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.databind.annotation.JsonSerialize;");
+		topLevelClass.addJavaDocLine("import com.hanson.base.annotation.AutoWriteParam;");
+		topLevelClass.addJavaDocLine("import com.hanson.base.mybatis.serializer.DatePattern;");
+		topLevelClass.addJavaDocLine("import com.hanson.base.serializer.EnumJsonSerializer;");
+		
+		
 		StringBuilder sb = new StringBuilder();
 
 		topLevelClass.addJavaDocLine("/**");
@@ -287,5 +298,6 @@ public class MyCommentGenerator implements CommentGenerator {
 		topLevelClass.addJavaDocLine(sb.toString());
 
 		topLevelClass.addJavaDocLine(" */");
+		topLevelClass.addJavaDocLine("@AutoWriteParam");
 	}
 }

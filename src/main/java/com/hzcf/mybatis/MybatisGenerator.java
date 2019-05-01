@@ -14,7 +14,9 @@ public class MybatisGenerator {
     public static void main(String[] args) throws Exception {
     	List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
-		InputStream is = MybatisGenerator.class.getResourceAsStream("/table_conf.xml");
+//		InputStream is = MybatisGenerator.class.getResourceAsStream("/sql/hhm/table_system_user.xml");
+		InputStream is = MybatisGenerator.class.getResourceAsStream("/tb_syfc_community.xml");
+//		InputStream is = MybatisGenerator.class.getResourceAsStream("/tb_syfc_building.xml");
 
 		try {
 			ConfigurationParser cp = new ConfigurationParser(warnings);

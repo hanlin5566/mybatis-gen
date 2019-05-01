@@ -43,18 +43,16 @@
 		<!-- enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" 
 			enableSelectByExample="false" selectByExampleQueryId="false" -->
 
-		<table schema="rps_data" tableName="decision_flow"
-			domainObjectName="DecisionFlow" enableCountByExample="false"
+		<table schema="hanson" tableName="tb_user_account"
+			domainObjectName="UserAccount" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="true" selectByExampleQueryId="false">
 			<property name="ignoreQualifiersAtRuntime" value="false" />
 			<!-- 设置主键用于插入时返回主键ID -->
-			<generatedKey column="flow_id" sqlStatement="MySql" identity="true"/> 
+			<generatedKey column="id" sqlStatement="MySql" identity="true"/> 
 			<!-- 设置需要重写的字段 -->
-			<columnOverride column="state"
-				javaType="com.hzcf.operation.base.enums.WorkFlowStatus" />
 			<columnOverride column="data_status"
-				javaType="com.hzcf.operation.base.enums.DataStatus" />
+				javaType="com.hanson.base.enums.DataStatus" />
 		</table>
 
 		
