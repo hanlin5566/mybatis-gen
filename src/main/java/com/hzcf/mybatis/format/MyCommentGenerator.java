@@ -156,15 +156,22 @@ public class MyCommentGenerator implements CommentGenerator {
 		try {
 			//filed type 
 			String className = field.getType().getFullyQualifiedName();
+			String fieldName = field.getName();
 			System.out.println(className);
 			//为了不关联其他项目，所以使用了indexof可能不准确,枚举需要是enum
-			if(className.indexOf("Date") >= 0){
+			if(className.indexOf("Date") >= 0 && fieldName.indexOf("createTime") < 0 && fieldName.indexOf("updateTime") < 0){
 				//日期类型添加日期的注解
-				field.addJavaDocLine("@DateTimeFormat(pattern = DatePattern.ISO_DATE)");
-				field.addJavaDocLine("@JsonFormat(pattern = DatePattern.ISO_DATE_TIME,timezone = DatePattern.TIME_ZONE)");
-			}else if(className.indexOf("enum") >= 0){
+				field.addJavaDocLine("@DateTimeFormat(pattern = DatePattern.ISO_DATE)");//输出的格式
+				field.addJavaDocLine("@JsonFormat(pattern = DatePattern.ISO_DATE_TIME,timezone = DatePattern.TIME_ZONE)");//输入接收的格式
+			}else if(className.indexOf("enum") >= 0 && fieldName.indexOf("dataStatus") < 0){
 				//枚举类型添加枚举的注解
 				field.addJavaDocLine("@JsonSerialize(using = EnumJsonSerializer.class)");
+			}
+
+			//系统字段不传递，添加@JsonIgnore注解
+			if(fieldName.indexOf("createTime") >= 0 || fieldName.indexOf("updateTime") >= 0 || fieldName.indexOf("createUserId") >= 0
+				|| fieldName.indexOf("updateUserId") >= 0 || fieldName.indexOf("dataStatus") >= 0){
+				field.addJavaDocLine("@JsonIgnore");
 			}
 			
 		} catch (Exception e) {
@@ -275,6 +282,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		//引包
 		topLevelClass.addJavaDocLine("import org.springframework.format.annotation.DateTimeFormat;");
 		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.annotation.JsonFormat;");
+		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.annotation.JsonIgnore;");
 		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.databind.annotation.JsonSerialize;");
 		topLevelClass.addJavaDocLine("import com.hanson.base.annotation.AutoWriteParam;");
 		topLevelClass.addJavaDocLine("import com.hanson.base.mybatis.serializer.DatePattern;");
