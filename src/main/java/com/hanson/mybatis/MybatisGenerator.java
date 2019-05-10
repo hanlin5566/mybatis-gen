@@ -1,4 +1,4 @@
-package com.hzcf.mybatis;
+package com.hanson.mybatis;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -17,6 +17,8 @@ public class MybatisGenerator {
 //		InputStream is = MybatisGenerator.class.getResourceAsStream("/sql/hhm/table_system_user.xml");
 //		InputStream is = MybatisGenerator.class.getResourceAsStream("/tb_syfc_community.xml");
 		InputStream is = MybatisGenerator.class.getResourceAsStream("/tb_syfc_building.xml");
+//		InputStream is = MybatisGenerator.class.getResourceAsStream("/tb_syfc_sales_no.xml");
+
 
 		try {
 			ConfigurationParser cp = new ConfigurationParser(warnings);

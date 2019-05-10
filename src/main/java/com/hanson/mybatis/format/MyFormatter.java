@@ -1,4 +1,4 @@
-package com.hzcf.mybatis.format;
+package com.hanson.mybatis.format;
 
 import org.mybatis.generator.api.JavaFormatter;
 import org.mybatis.generator.api.dom.DefaultJavaFormatter;

@@ -1,4 +1,4 @@
-package com.hzcf.mybatis.format;
+package com.hanson.mybatis.format;
 
 import static org.mybatis.generator.internal.util.StringUtility.isTrue;
 
@@ -158,6 +158,8 @@ public class MyCommentGenerator implements CommentGenerator {
 			String className = field.getType().getFullyQualifiedName();
 			String fieldName = field.getName();
 			System.out.println(className);
+			//添加描述注解用于页面字段展示
+			field.addJavaDocLine("@Describe(\""+introspectedColumn.getRemarks()+"\")");//输出的格式
 			//为了不关联其他项目，所以使用了indexof可能不准确,枚举需要是enum
 			if(className.indexOf("Date") >= 0 && fieldName.indexOf("createTime") < 0 && fieldName.indexOf("updateTime") < 0){
 				//日期类型添加日期的注解
@@ -285,6 +287,7 @@ public class MyCommentGenerator implements CommentGenerator {
 		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.annotation.JsonIgnore;");
 		topLevelClass.addJavaDocLine("import com.fasterxml.jackson.databind.annotation.JsonSerialize;");
 		topLevelClass.addJavaDocLine("import com.hanson.base.annotation.AutoWriteParam;");
+		topLevelClass.addJavaDocLine("import com.hanson.base.annotation.Describe;");
 		topLevelClass.addJavaDocLine("import com.hanson.base.mybatis.serializer.DatePattern;");
 		topLevelClass.addJavaDocLine("import com.hanson.base.serializer.EnumJsonSerializer;");
 		

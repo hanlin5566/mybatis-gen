@@ -7,10 +7,10 @@
 	<properties resource="db_config.properties" />
 	<context id="centerTables" targetRuntime="MyBatis3">
 		<property name="javaFileEncoding" value="UTF-8" />
-		<property name="javaFormatter" value="com.hzcf.mybatis.format.MyFormatter" />
+		<property name="javaFormatter" value="com.hanson.mybatis.format.MyFormatter" />
 		<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
 
-		<commentGenerator type="com.hzcf.mybatis.format.MyCommentGenerator">
+		<commentGenerator type="com.hanson.mybatis.format.MyCommentGenerator">
 
 		</commentGenerator>
 
